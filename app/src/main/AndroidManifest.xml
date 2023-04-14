@@ -32,6 +32,7 @@
                 android:resource="@xml/authenticator" />
         </service>
         <activity android:name=".TestBundleMismatchResultActivity"/>
+        <activity android:name=".TestLaunchAnyWhereActivity"/>
     </application>
 
 </manifest>
