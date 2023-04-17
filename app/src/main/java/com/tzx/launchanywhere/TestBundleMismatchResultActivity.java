@@ -25,7 +25,9 @@ public class TestBundleMismatchResultActivity extends Activity {
         Bundle extras = intent.getExtras();
         Set<String> strings = extras.keySet();
         for (String s : strings) {
-            Log.d("tanzhenxing33", "TestBundleMismatchResultActivity key = " + s);
+            Object o = extras.get(s);
+            String clsName = o != null ? o.getClass().getName() : "NULL";
+            Log.d("tanzhenxing33", "TestBundleMismatchResultActivity key = " + s + " " + clsName);
         }
         Object result = extras.get("intent");
         if (result instanceof Intent) {
