@@ -26,6 +26,7 @@ public class MainActivity extends Activity {
             startActivity(intent);
         });
         findViewById(R.id.bundle_mismatch).setOnClickListener(v -> openBundleMisMatchResultPage());
+        Log.d("tanzhenxing33", "Bundle.class.getClassLoader()=" + Bundle.class.getClassLoader());
     }
 
     @TargetApi(Build.VERSION_CODES.N)

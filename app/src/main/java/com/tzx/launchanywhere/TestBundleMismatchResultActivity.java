@@ -23,6 +23,9 @@ public class TestBundleMismatchResultActivity extends Activity {
         Log.d("tanzhenxing33", "onCreate:" + getLocalClassName());
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        Log.d("tanzhenxing33", "Bundle.ClassLoader=" + extras.getClassLoader());
+        Bundle extras2 = new Bundle();
+        Log.d("tanzhenxing33", "extras2 Bundle.ClassLoader=" + extras2.getClassLoader());
         Set<String> strings = extras.keySet();
         for (String s : strings) {
             Object o = extras.get(s);
